@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>젤다의 전설 마스터 대사전 & 공식 공략 포털</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
+        body { font-family: 'Pretendard', sans-serif; background-color: #f7f6f2; color: #2c2c2c; }
+        .zelda-header { background: linear-gradient(135deg, #1b3b22 0%, #0f2414 100%); border-bottom: 4px solid #c5a059; }
+        .zelda-card { transition: all 0.2s ease-in-out; border: 1px solid #e2ded4; background: #ffffff; }
+        .zelda-card:hover { transform: translateY(-3px); border-color: #c5a059; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .badge-gold { background-color: #fdf8ec; color: #997420; border: 1px solid #e6d5b8; }
+        .font-cinzel { font-family: 'Cinzel', serif; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <header class="zelda-header text-white py-6 px-8 shadow-md">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <h1 onclick="goHome()" class="text-2xl md:text-3xl font-bold tracking-wider cursor-pointer flex items-center gap-2 font-cinzel">
+                <span>🛡️</span> 하이랄 마스터 대사전 & 공식 공략 포털
+            </h1>
+            <span class="text-sm text-[#c5a059] font-medium border border-[#c5a059] px-3 py-1 rounded-full">Official Compendium v8.0</span>
+        </div>
+    </header>
+
+    <nav class="bg-white border-b border-gray-200 py-3 px-8 shadow-sm">
+        <div class="max-w-6xl mx-auto flex items-center text-sm text-gray-600 overflow-x-auto whitespace-nowrap" id="breadcrumb">
+            <span class="cursor-pointer font-bold text-[#1b3b22]" onclick="goHome()">홈</span>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-6 py-10 flex-grow w-full" id="main-content">
+        <!-- 동적 렌더링 영역 -->
+    </main>
+
+    <footer class="bg-[#1b3b22] text-[#c5a059] py-6 text-center text-sm border-t-2 border-[#c5a059]">
+        <p>젤다의 전설 팬메이드 마스터 공략집. 모든 권한은 닌텐도에 있습니다.</p>
+    </footer>
+
+    <script>
+        const database = {
+            name: "홈",
+            type: "category",
+            children: {
+                "botw": {
+                    name: "🌿 야생의 숨결 (Breath of the Wild)",
+                    desc: "100년의 잠에서 깨어난 링크가 재앙 가논에 맞서는 모험. 시카 타워 맵, 120개 사당, 4신수 및 커스 가논 공략",
+                    type: "category",
+                    children: {
+                        "map_botw": {
+                            name: "🗺️ 하이랄 맵 & 지역 가이드",
+                            desc: "시카 타워 15개 위치 및 하이랄 평원, 타반타 대설원 등 지방별 특징",
+                            type: "article",
+                            content: "<h4>야생의 숨결 맵 특징</h4><ul><li><strong>시카 타워:</strong> 등반 후 시커 스톤과 연동하여 지역 맵 해제 (총 15개).</li><li><strong>주요 지방:</strong> 하이랄 평원, 하테노 지방, 올딘 지방(데스마운틴), 라넬 지방(조라의 마을), 겔드 사막 등.</li></ul>"
+                        },
+                        "shrines_botw": {
+                            name: "✨ 사당 위치 및 공략 (120개 + DLC)",
+                            desc: "시작의 대지 4대 사당 및 전역 사당, 극복의 증표 수집 가이드",
+                            type: "article",
+                            content: "<h4>시작의 대지 4대 사당</h4><ul><li>오코오호의 사당 (마그넷 캐치)</li><li>타오·요나의 사당 (타임 록)</li><li>제타·사바의 사당 (아이스 메이커)</li><li>지마·시타의 사당 (리모콘 폭탄)</li></ul>"
+                        },
+                        "story_bosses_botw": {
+                            name: "👑 스토리 보스 및 신수 위치",
+                            desc: "4신수 커스 가논, 재앙 가논, 도사 미즈·코시아",
+                            type: "category",
+                            children: {
+                                "blights_botw": {
+                                    name: "신수 내부 커스 가논 4종",
+                                    desc: "물·번개·화염·바람의 커스 가논 공략처",
+                                    type: "article",
+                                    content: "• <strong>물의 커스 가논:</strong> 조라의 마을 북쪽 '바·루타' 내부<br>• <strong>번개의 커스 가논:</strong> 겔드 사막 상공 '바·나보리스' 내부<br>• <strong>화염의 커스 가논:</strong> 데스마운틴 '바·다루니아' 내부<br>• <strong>바람의 커스 가논:</strong> 리토의 마을 상공 '바·메도' 내부"
+                                },
+                                "ganon_botw": {
+                                    name: "재앙 가논 & 도사 미즈·코시아",
+                                    desc: "하이랄 성 최하층 및 영걸들의 노래 DLC 최종 보스",
+                                    type: "article",
+                                    content: "• <strong>재앙 가논:</strong> 하이랄 성 최하층 성소.<br>• <strong>도사 미즈·코시아:</strong> 영걸들의 노래 DLC 최종 보스."
+                                }
+                            }
+                        }
+                    }
+                },
+                "totk": {
+                    name: "👑 왕국의 눈물 (Tears of the Kingdom)",
+                    desc: "지상, 하늘, 지저 3층 구조 맵과 조나우 기어, 새로운 이변과 신전 보스",
+                    type: "category",
+                    children: {
+                        "map_totk": {
+                            name: "🗺️ 왕국의 눈물 3층 구조 맵 가이드",
+                            desc: "지상 대지, 하늘섬, 그리고 어둠의 지저 세계 분석 (지저 뿌리 = 지상 사당 X,Y 대칭)",
+                            type: "article",
+                            content: "<h4>왕눈 맵 구조 가이드</h4><ul><li><strong>지상:</strong> 감시 요새를 중심으로 재편된 하이랄 대지.</li><li><strong>하늘:</strong> 조나우 기어를 활용해 비행하는 공중 섬들.</li><li><strong>지저:</strong> 지상의 사당 위치와 좌표가 1:1 일치하는 '파계의 뿌리'를 밝혀야 하는 어둠의 세계.</li></ul>"
+                        },
+                        "shrines_totk": {
+                            name: "✨ 사당 위치 및 공략 (152개)",
+                            desc: "지상과 하늘에 흩어진 152개 사당 및 조나우 능력 활용 퍼즐",
+                            type: "article",
+                            content: "왕국의 눈물의 사당은 총 152개입니다. 울트라핸드, 스크래빌드, 트레루프, 역행 등의 능력을 응용합니다."
+                        },
+                        "boss_totk": {
+                            name: "👑 지방 이변 신전 보스 5종 & 마왕",
+                            desc: "프리즈게이라, 볼드고마, 옥타코스, 퀸기브도, 빼앗긴 골렘, 마왕 가논도르프",
+                            type: "category",
+                            children: {
+                                "temple_bosses_totk": {
+                                    name: "신전 보스 5종 완벽 공략",
+                                    desc: "프리즈게이라, 볼드고마, 옥타코스, 퀸기브도, 빼앗긴 골렘",
+                                    type: "article",
+                                    content: "<h4>왕국의 눈물 5대 신전 보스 명칭</h4><ul><li><strong>프리즈게이라:</strong> 바람의 신전 거대 얼음 드래곤</li><li><strong>볼드고마:</strong> 불의 신전 광석 장갑 바위 괴수</li><li><strong>옥타코스:</strong> 물의 신전 문어형 보스</li><li><strong>퀸기브도:</strong> 번개의 신전 모래 괴물</li><li><strong>빼앗긴 골렘:</strong> 혼의 신전 기계 탑승 대결 보스</li></ul>"
+                                },
+                                "ganondorf_totk": {
+                                    name: "마왕 가논도르프 (지저 최하층 - 봉인의 터)",
+                                    desc: "하이랄 성 지저 깊숙한 곳의 최종 결전지",
+                                    type: "article",
+                                    content: "최대 하트 슬롯을 파괴하는 독기 공격을 구사하는 최종 결전 보스입니다."
+                                }
+                            }
+                        }
+                    }
+                },
+                "glitches": {
+                    name: "🕹️ 글리치 및 버그 공략",
+                    desc: "야숨 윈드밤 및 왕눈 아이템 복사 유튜브 가이드 포함",
+                    type: "category",
+                    children: {
+                        "windbomb_botw": {
+                            name: "야숨 윈드밤 (BIL) 가이드",
+                            desc: "폭탄 두 개의 폭발력을 이용한 대륙 횡단 비행",
+                            type: "article",
+                            content: "네모 폭탄 설치 ➔ 동그라미 폭탄 전환 ➔ 공중 점프 후 활 쏘기 상태 진입 ➔ 폭탄 순서대로 격발.<br><br>• <a href='https://www.youtube.com/results?search_query=botw+windbomb+guide' target='_blank' class='text-green-700 font-bold underline'>[유튜브 윈드밤 가이드 검색하기]</a>"
+                        },
+                        "durability_botw": {
+                            name: "야숨 무기 내구도 이식",
+                            desc: "죽음의 산 옥토록을 활용한 무기 복사",
+                            type: "article",
+                            content: "고성능 무기의 내구도를 소모된 무기로 전이시키는 필수 테크닉입니다.<br><br>• <a href='https://www.youtube.com/results?search_query=botw+weapon+durability+transfer' target='_blank' class='text-green-700 font-bold underline'>[유튜브 내구도 이식 검색하기]</a>"
+                        },
+                        "item_dupe_totk": {
+                            name: "왕눈 메뉴 오버로드 아이템 복사",
+                            desc: "활 여러 개 장착을 통한 메모리 과부하 복사법",
+                            type: "article",
+                            content: "다발궁을 장착하고 화살에 재료를 붙여 메뉴를 빠르게 열고 닫는 방식으로 귀한 소재를 대량 복제합니다.<br><br>• <a href='https://www.youtube.com/results?search_query=totk+item+duplication+glitch' target='_blank' class='text-green-700 font-bold underline'>[유튜브 왕눈 아이템 복사 검색하기]</a>"
+                        }
+                    }
+                },
+                "monster_encyclopedia": {
+                    name: "📖 젤다의 전설 몬스터 대백과",
+                    desc: "보코블린, 모리블린, 호러블린, 골렘, 필드 보스 등 완벽 도감",
+                    type: "category",
+                    children: {
+                        "bokoblin_line": {
+                            name: "보코블린 (Bokoblin)",
+                            desc: "하이랄 전역에 야영지를 이루는 가장 흔한 마물",
+                            type: "article",
+                            content: "<h4>등급별 종류</h4><ul><li><strong>일반 (붉은색):</strong> 기본 체력과 약한 공격력</li><li><strong>파랑:</strong> 초중반 중급 개체</li><li><strong>검정:</strong> 상급 개체</li><li><strong>스탈 (뼈):</strong> 밤에만 출현하는 언데드</li><li><strong>회색 (백은/골드):</strong> 최상급 하드코어 개체</li></ul>"
+                        },
+                        "moriblin_line": {
+                            name: "모리블린 (Moblin)",
+                            desc: "거구의 수인형 마물",
+                            type: "article",
+                            content: "일반, 파랑, 검정, 스탈, 회색 등 단계별 체력 및 공격력 체계 보유."
+                        },
+                        "horriblin_line": {
+                            name: "호러블린 (Horriblin) [왕눈 신규]",
+                            desc: "동굴 천장에 거꾸로 매달려 돌이나 창을 던지는 기습형 마물",
+                            type: "article",
+                            content: "일반 / 파랑 / 검정 / 스탈 / 회색 등급 존재."
+                        },
+                        "lizalfos_line": {
+                            name: "리잘포스 (Lizalfos)",
+                            desc: "카멜레온 형태의 민첩한 마물, 속성 공격 특화",
+                            type: "article",
+                            content: "일반, 파랑, 검정, 스탈, 회색 등급 및 전기/얼음/불 브레스 개체 존재."
+                        },
+                        "chuchu_line": {
+                            name: "츄츄 및 조아조아",
+                            desc: "말랑한 젤리 형태의 마물과 아이템을 삼키는 조아조아",
+                            type: "article",
+                            content: "불/얼음/전기 속성 츄츄 젤리 및 아이템을 삼키는 조아조아 서식."
+                        },
+                        "construct_line": {
+                            name: "조나우 골렘 (Construct) [왕눈]",
+                            desc: "조나우족이 만든 자율형 로봇 마물",
+                            type: "article",
+                            content: "병정 골렘, 중등 병정, 상등 병정, 특등 병정, 특무대장 골렘 존재."
+                        },
+                        "field_bosses_list": {
+                            name: "⚔️ 필드 보스 (라이넬, 바위록, 글리오크 등)",
+                            desc: "하이랄 곳곳에 도사린 거대 정예 보스 목록",
+                            type: "article",
+                            content: "라이넬, 바위록, 글리오크(화염/번개/얼음), 데그가마, 블록골렘, 히녹스, 몰드레고, 팬텀 가논, 독기마 등."
+                        }
+                    }
+                },
+                "amiibo_rewards": {
+                    name: "🎁 아미보 (Amiibo) 보상 대백과",
+                    desc: "역대 링크, 젤다, 가디언 및 특수 아미보 전설의 의상 및 무기 세트",
+                    type: "article",
+                    content: "<h4>주요 아미보 보상 목록</h4><ul><li><strong>시간의 오카리나 링크:</strong> 시간의 용사 옷 세트, 빅고론의 검</li><li><strong>무쥬라의 가면 링크:</strong> 귀신 링크 옷 세트, 귀신 대검</li><li><strong>바람의 지휘봉 링크:</strong> 바다의 용사 옷 세트, 해풍의 부메랑</li><li><strong>스카이워드 소드 링크:</strong> 하늘의 용사 옷 세트, 여신의 백인검</li><li><strong>황혼의 공주 링크:</strong> 황혼의 용사 옷 세트, 에포나 소환</li><li><strong>대난투 스마시브라더스 링크:</strong> 하일리아의 방패 (확률 드랍)</li><li><strong>대난투 젤다:</strong> 황혼의 활 (빛의 화살 무한 발사) 및 보석류</li><li><strong>바람의 지휘봉 젤다:</strong> 백풍의 방패, 허브 및 생선류</li><li><strong>브레스 오브 더 와일드 젤다:</strong> 황혼의 방패 및 방어구 소재</li><li><strong>왕국의 눈물 젤다:</strong> 용사의 패러세일 원단 (왕눈 전용), 희귀 소재</li><li><strong>가디언 아미보:</strong> 고대 병기 화살 확정 드랍, 고대 샤프트/전동기 등 기계 부품</li><li><strong>보블린 아미보:</strong> 고기 세트, 보블린 고기 클럽 무기</li><li><strong>시크 아미보:</strong> 시크의 마스크, 은빛 활</li><li><strong>카시와 / 울보자 / 리발 / 다루니아 / 미파:</strong> 각 영걸들의 신수 전용 투구 및 무기</li></ul>"
+                },
+                "sites": {
+                    name: "🌐 공식 인터랙티브 맵 바로가기",
+                    desc: "야생의 숨결 및 왕국의 눈물 사당/코로그 위치 인터랙티브 지도",
+                    type: "article",
+                    content: "하이랄 전역의 사당, 코로그의 열매, 보스 위치를 완벽하게 찾을 수 있는 공식 지도 사이트입니다.<br><br>" +
+                             "• <a href='https://www.zeldadungeon.net/breath-of-the-wild-interactive-map/' target='_blank' class='inline-block bg-[#1b3b22] text-[#c5a059] font-bold px-6 py-3 rounded-xl hover:bg-opacity-90 shadow-md transition mb-3'>🗺️ [야생의 숨결(BotW) 공식 인터랙티브 맵 바로가기]</a><br><br>" +
+                             "• <a href='https://www.zeldadungeon.net/tears-of-the-kingdom-interactive-map/?z=5&x=190&y=-230' target='_blank' class='inline-block bg-[#1b3b22] text-[#c5a059] font-bold px-6 py-3 rounded-xl hover:bg-opacity-90 shadow-md transition'>🗺️ [왕국의 눈물(TotK) 공식 인터랙티브 맵 바로가기]</a>"
+                }
+            }
+        };
+
+        let historyStack = [database];
+
+        function getCurrentNode() {
+            return historyStack[historyStack.length - 1];
+        }
+
+        function render() {
+            const container = document.getElementById('main-content');
+            const breadcrumb = document.getElementById('breadcrumb');
+            const currentNode = getCurrentNode();
+
+            let bcHTML = '';
+            historyStack.forEach((node, index) => {
+                bcHTML += `<span class="cursor-pointer hover:underline ${index === historyStack.length - 1 ? 'font-bold text-[#1b3b22]' : ''}" onclick="goToBreadcrumb(${index})">${node.name}</span>`;
+                if (index < historyStack.length - 1) {
+                    bcHTML += `<span class="mx-2 text-gray-400">/</span>`;
+                }
+            });
+            breadcrumb.innerHTML = bcHTML;
+
+            let html = '';
+            if (currentNode.type === 'article') {
+                html = `
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-[#e2ded4] animate-fadeIn">
+                        <h2 class="text-3xl font-bold text-[#1b3b22] mb-4">${currentNode.name}</h2>
+                        <p class="text-gray-500 mb-6 text-base">${currentNode.desc}</p>
+                        <hr class="border-gray-100 mb-6">
+                        <div class="text-gray-700 leading-relaxed text-lg space-y-4">
+                            ${currentNode.content}
+                        </div>
+                        <div class="mt-8">
+                            <button onclick="goBack()" class="bg-[#1b3b22] text-[#c5a059] px-6 py-2.5 rounded-lg font-medium hover:bg-opacity-90 transition">← 이전 목록으로</button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                html = `
+                    <div class="mb-8">
+                        <h2 class="text-3xl font-bold text-[#1b3b22] mb-2">${currentNode.name}</h2>
+                        <p class="text-gray-600">${currentNode.desc || '항목을 선택하여 자세한 정보를 확인하세요.'}</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                `;
+                for (let key in currentNode.children) {
+                    let child = currentNode.children[key];
+                    html += `
+                        <div onclick="selectNode('${key}')" class="zelda-card p-6 rounded-xl cursor-pointer flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs font-semibold px-2.5 py-1 rounded-full badge-gold inline-block mb-3">
+                                    ${child.type === 'article' ? '상세 공략' : '하위 분류'}
+                                </span>
+                                <h3 class="text-xl font-bold text-gray-800 mb-2">${child.name}</h3>
+                                <p class="text-gray-600 text-sm leading-relaxed">${child.desc}</p>
+                            </div>
+                            <div class="mt-6 flex items-center text-[#1b3b22] font-semibold text-sm">
+                                <span>탐색하기</span>
+                                <span class="ml-1">→</span>
+                            </div>
+                        </div>
+                    `;
+                }
+                html += `</div>`;
+            }
+            container.innerHTML = html;
+        }
+
+        function selectNode(key) {
+            const currentNode = getCurrentNode();
+            if (currentNode.children && currentNode.children[key]) {
+                historyStack.push(currentNode.children[key]);
+                render();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function goBack() {
+            if (historyStack.length > 1) {
+                historyStack.pop();
+                render();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function goHome() {
+            historyStack = [database];
+            render();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goToBreadcrumb(index) {
+            historyStack = historyStack.slice(0, index + 1);
+            render();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.onload = function() {
+            render();
+        };
+    </script>
+</body>
+</html>
